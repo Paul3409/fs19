@@ -26,19 +26,9 @@ print("Imported", len(meshes), "meshes for GE8 FBX test")
 addon_utils.enable("io_scene_fbx", default_set=True)
 print("FBX exporter enabled:", bpy.ops.export_scene.fbx.get_rna_type().identifier)
 print("FBX props:", list(bpy.ops.export_scene.fbx.get_rna_type().properties.keys()))
-bpy.ops.export_scene.fbx(
-    filepath=FBX,
-    use_selection=False,
-    object_types={"MESH", "EMPTY"},
-    apply_unit_scale=True,
-    axis_forward="-Z",
-    axis_up="Y",
-    use_mesh_modifiers=True,
-    mesh_smooth_type="FACE",
-    path_mode="COPY",
-    embed_textures=True,
-    add_leaf_bones=False,
-)
+# Blender 5.0's packaged FBX exporter exposes only a minimal set of options.
+# Keep all PNGs next to the FBX for texture relinking in GE8.
+bpy.ops.export_scene.fbx(filepath=FBX, axis_forward="-Z", axis_up="Y")
 if not os.path.isfile(FBX) or os.path.getsize(FBX) < 10000:
     raise RuntimeError("FBX export failed or empty")
 

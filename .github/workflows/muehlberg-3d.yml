@@ -18,9 +18,9 @@ jobs:
       - name: Generate GLB, OBJ and PNG textures
         run: python Dorffeuerwache_Muehlberg/Muehlberg_3D_Generator.py
       - name: Install Blender for GE8 FBX conversion
-        run: sudo apt-get update -qq && sudo apt-get install -y blender
+        run: sudo apt-get update -qq && sudo apt-get install -y blender python3-numpy
       - name: Export GE8 FBX import test
-        run: blender --background --python Dorffeuerwache_Muehlberg/export_ge8_fbx.py
+        run: blender --background --python-exit-code 1 --python Dorffeuerwache_Muehlberg/export_ge8_fbx.py
       - name: Publish GE8 FBX test package
         uses: actions/upload-artifact@v4
         with:

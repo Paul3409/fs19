@@ -25,6 +25,7 @@ print("Imported", len(meshes), "meshes for GE8 FBX test")
 # Blender 5 distributions may ship the FBX exporter disabled by default.
 addon_utils.enable("io_scene_fbx", default_set=True)
 print("FBX exporter enabled:", bpy.ops.export_scene.fbx.get_rna_type().identifier)
+print("FBX props:", list(bpy.ops.export_scene.fbx.get_rna_type().properties.keys()))
 bpy.ops.export_scene.fbx(
     filepath=FBX,
     use_selection=False,

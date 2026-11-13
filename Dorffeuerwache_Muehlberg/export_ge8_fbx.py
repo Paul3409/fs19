@@ -3,6 +3,7 @@ Run with: blender --background --python Dorffeuerwache_Muehlberg/export_ge8_fbx.
 This is a GE8 import TEST, not a native I3D or a finished FS19 placeable.
 """
 import bpy
+import addon_utils
 import os
 import shutil
 import zipfile
@@ -21,6 +22,9 @@ meshes = [o for o in bpy.context.scene.objects if o.type == "MESH"]
 if not meshes:
     raise RuntimeError("GLB import returned no meshes")
 print("Imported", len(meshes), "meshes for GE8 FBX test")
+# Blender 5 distributions may ship the FBX exporter disabled by default.
+addon_utils.enable("io_scene_fbx", default_set=True)
+print("FBX exporter enabled:", bpy.ops.export_scene.fbx.get_rna_type().identifier)
 bpy.ops.export_scene.fbx(
     filepath=FBX,
     use_selection=False,
